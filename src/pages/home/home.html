@@ -10,10 +10,10 @@
   <div>
     <div> Current: {{currentPodcastData.items[currentSelected].title}}</div>
     <div>
-      <button ion-button round>-30s</button>
+      <button ion-button round (click)="skipBack()">-30s</button>
       <button ion-button round (click)="playSelected()">Play</button>
       <button ion-button round (click)="stopSelected()">Stop</button>
-      <button ion-button round>+30s</button>
+      <button ion-button round (click)="skipAhead()">+30s</button>
     </div>
   </div>
 

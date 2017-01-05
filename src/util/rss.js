@@ -7,7 +7,17 @@ var getFeed = function(url) {
     console.log('trying to download from: ', url);
 
     var parser = new xml2js.Parser();
+/*
 
+ export interface ITrackConstraint {
+ id?:number;
+ src: string;
+ title?: string;
+ artist?: string;
+ art?: string;
+ preload?: string;
+ }
+ */
     return new Promise(function(resolve, reject) {
 
         request(url, function (err, res, body) {
@@ -18,7 +28,7 @@ var getFeed = function(url) {
 
                 if(err) { reject(Error("xml/rss parsing failed")); }
 
-                //console.log(JSON.stringify(result, null, 2));
+                console.log(JSON.stringify(result, null, 2));
 
                 var root = result.rss.channel[0];
                 var title = root['title'][0];
@@ -27,10 +37,10 @@ var getFeed = function(url) {
                 var items = [];
 
                 itemsObj.forEach(function (item) {
-                    var url = item['enclosure'][0]['$']['url'];
+                    var src = item['enclosure'][0]['$']['url'];
                     var title = item['title'][0];
                     var picUrl = item['itunes:image'][0]['$']['href'];
-                    items.push({ title: title, url: url, picUrl : picUrl });
+                    items.push({ title: title, src: src, picUrl : picUrl });
                 });
 
                 var result = {
