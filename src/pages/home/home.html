@@ -1,32 +1,54 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>
+            <div *ngIf="!currentPodcastData">Loading...</div>
+            <div *ngIf="currentPodcastData">{{currentPodcastData.title}}</div>
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content *ngIf="currentPodcastData" padding>
-  <h2>{{currentPodcastData.title}}</h2>
 
-  <div>
-    <div> Current: {{currentPodcastData.items[currentSelected].title}}</div>
+    <div style="height: 5em"></div>
+
+
     <div>
-      <button ion-button round (click)="skipBack()">-30s</button>
-      <button ion-button round (click)="playSelected()">Play</button>
-      <button ion-button round (click)="stopSelected()">Stop</button>
-      <button ion-button round (click)="skipAhead()">+30s</button>
+        <div> Current: {{currentPodcastData.items[currentSelected].title}}</div>
+        <div item-content style="width:100%" *ngIf="currentTrack">
+            <audio-track-progress-bar duration progress [audioTrack]="currentTrack"></audio-track-progress-bar>
+
+
+        </div>
+        <div>
+            <button ion-button round (click)="skipBack()">-30s</button>
+            <button ion-button round (click)="playSelected()">Play</button>
+            <button ion-button round (click)="stopSelected()">Stop</button>
+            <button ion-button round (click)="skipAhead()">+30s</button>
+        </div>
+        <div>
+            <button ion-button round (click)="addBookmark()">Add bookmark</button>
+            <ion-list>
+                <ion-item *ngFor="let bm of currentBookmarks; let idx = index" (click)="skipToBookmark(idx)">
+                    <div item-content style="width:100%">
+                        <p><strong>{{bm}}</strong></p>
+                    </div>
+                    <div item-right>
+                        <button ion-button round (click)="removeBookmark(idx)">x</button>
+                    </div>
+                </ion-item>
+            </ion-list>
+        </div>
     </div>
-  </div>
 
-  <ion-list>
-    <ion-item *ngFor="let track of currentPodcastData.items; let idx = index" (click)="onItemClicked(idx)">
-      <ion-thumbnail item-left>
-        <img src="{{track.picUrl}}">
-      </ion-thumbnail>
-      <div item-content style="width:100%">
-        <p><strong>{{track.title}}</strong></p>
-      </div>
-    </ion-item>
-  </ion-list>
-
+    <ion-list>
+        <ion-item *ngFor="let track of currentPodcastData.items; let idx = index" (click)="onItemClicked(idx)">
+            <ion-thumbnail item-left>
+                <img src="{{track.picUrl}}">
+            </ion-thumbnail>
+            <div item-content style="width:100%">
+                <p><strong>{{track.title}}</strong></p>
+            </div>
+        </ion-item>
+    </ion-list>
 
 </ion-content>

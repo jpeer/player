@@ -6,7 +6,8 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { DataService } from '../providers/data-service'
-import { AudioProvider, audioProviderfactory } from './ionic-audio/ionic-audio.module';
+import { IonicAudioModule, AudioProvider, audioProviderfactory } from './ionic-audio/ionic-audio.module';
+import { Storage } from '@ionic/storage';
 
 
 
@@ -19,7 +20,8 @@ import { AudioProvider, audioProviderfactory } from './ionic-audio/ionic-audio.m
     TabsPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicAudioModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -29,6 +31,10 @@ import { AudioProvider, audioProviderfactory } from './ionic-audio/ionic-audio.m
     HomePage,
     TabsPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, DataService, { provide: AudioProvider, useFactory: audioProviderfactory }]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
+    DataService,
+    { provide: AudioProvider, useFactory: audioProviderfactory },
+    Storage
+  ]
 })
 export class AppModule {}
