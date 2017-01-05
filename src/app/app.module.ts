@@ -1,12 +1,11 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { IonicApp, IonicModule } from 'ionic-angular';
+import { NgModule, ErrorHandler } from '@angular/core';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
-
-import { IonicAudioModule, AudioProvider, audioProviderfactory } from './ionic-audio/ionic-audio.module';
+import { DataService } from '../providers/data-service'
 
 @NgModule({
   declarations: [
@@ -17,8 +16,7 @@ import { IonicAudioModule, AudioProvider, audioProviderfactory } from './ionic-a
     TabsPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp),
-    IonicAudioModule
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -28,7 +26,6 @@ import { IonicAudioModule, AudioProvider, audioProviderfactory } from './ionic-a
     HomePage,
     TabsPage
   ],
-  providers: [ { provide: AudioProvider, useFactory: audioProviderfactory }],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, DataService]
 })
 export class AppModule {}

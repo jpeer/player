@@ -4,6 +4,8 @@ var request = require('request'),
 
 var getFeed = function(url) {
 
+    console.log('trying to download from: ', url);
+
     var parser = new xml2js.Parser();
 
     return new Promise(function(resolve, reject) {
@@ -16,7 +18,7 @@ var getFeed = function(url) {
 
                 if(err) { reject(Error("xml/rss parsing failed")); }
 
-                console.log(JSON.stringify(result, null, 2));
+                //console.log(JSON.stringify(result, null, 2));
 
                 var root = result.rss.channel[0];
                 var title = root['title'][0];
@@ -27,7 +29,8 @@ var getFeed = function(url) {
                 itemsObj.forEach(function (item) {
                     var url = item['enclosure'][0]['$']['url'];
                     var title = item['title'][0];
-                    items.push({ title: title, url: url });
+                    var picUrl = item['itunes:image'][0]['$']['href'];
+                    items.push({ title: title, url: url, picUrl : picUrl });
                 });
 
                 var result = {
