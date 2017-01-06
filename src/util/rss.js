@@ -4,7 +4,7 @@ var request = require('request'),
 
 var getFeed = function(url) {
 
-    console.log('trying to download from: ', url);
+    //console.log('trying to download from: ', url);
 
     var parser = new xml2js.Parser();
 /*
@@ -28,7 +28,7 @@ var getFeed = function(url) {
 
                 if(err) { reject(Error("xml/rss parsing failed")); }
 
-                console.log(JSON.stringify(result, null, 2));
+                //console.log(JSON.stringify(result, null, 2));
 
                 var root = result.rss.channel[0];
                 var title = root['title'][0];

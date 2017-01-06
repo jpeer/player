@@ -1,6 +1,27 @@
 page-home {
-  ion-item:hover a {
-    background-color: slategray !important;
+  ion-item:hover {
+    background-color: lightslategray !important;
+  }
+
+  .item.active, .item.activated, .item-complex.active .item-content, .item-complex.activated .item-content {
+    border-color: #ccc;
+    background-color: #D9D9D9;
+  }
+
+
+  ion-item.activated {
+    border-color: #ccc;
+    background-color: slategray;
+  }
+
+  .selected {
+    border-color: #ccc;
+    background-color: slategray;
+  }
+
+  ion-item.active {
+    border-color: #ccc;
+    background-color: slategray;
   }
 
 }

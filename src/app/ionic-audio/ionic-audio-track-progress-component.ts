@@ -61,12 +61,12 @@ export class AudioTrackProgressBarComponent implements DoCheck {
    * @property @Input() audioTrack
    * @type {IAudioTrack}
    */
-  @Input() audioTrack: IAudioTrack;
-  
   public completed: number = 0;
   public range: number = 0;
   public showDuration: boolean;
   public showProgress: boolean;
+  private _audioTrack: IAudioTrack;
+
   constructor(private el: ElementRef, private renderer: Renderer) { 
   }
   
@@ -80,7 +80,17 @@ export class AudioTrackProgressBarComponent implements DoCheck {
   public set progress(v : boolean) {
     this.showProgress = true;
   }
-  
+
+  @Input()
+  public set audioTrack(audioTrack: IAudioTrack) {
+    this._audioTrack = audioTrack;
+    this.range = 0;
+  }
+
+  public get audioTrack() : IAudioTrack {
+    return this._audioTrack;
+  }
+
   /**
    * Input property indicating whether to display track duration 
    * 

@@ -23167,6 +23167,26 @@ audio-track audio-track-progress-bar time {
   font-size: .8em;
 }
 
-page-home ion-item:hover a {
-  background-color: slategray !important;
+page-home ion-item:hover {
+  background-color: lightslategray !important;
+}
+
+page-home .item.active, page-home .item.activated, page-home .item-complex.active .item-content, page-home .item-complex.activated .item-content {
+  border-color: #ccc;
+  background-color: #D9D9D9;
+}
+
+page-home ion-item.activated {
+  border-color: #ccc;
+  background-color: slategray;
+}
+
+page-home .selected {
+  border-color: #ccc;
+  background-color: slategray;
+}
+
+page-home ion-item.active {
+  border-color: #ccc;
+  background-color: slategray;
 }

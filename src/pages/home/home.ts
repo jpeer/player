@@ -11,7 +11,6 @@ import {AudioProvider} from '../../app/ionic-audio/ionic-audio.module';
 })
 export class HomePage implements OnInit {
 
-
     currentPodcastData: any;
     error: string;
     currentSelected: number = 0;
@@ -24,15 +23,15 @@ export class HomePage implements OnInit {
     }
 
     ngOnInit(): void {
+
         this.dataService.getActivePodcastData().then(res => {
             this.currentPodcastData = res;
 
-            this.currentPodcastData.items.forEach(elem => {
-                console.log('prepping');
-                let track = this.audioProvider.create(elem);
-                this.audioProvider.add(track);
-            });
+            this.audioProvider.tracks.splice(0, this.audioProvider.tracks.length);
 
+            this.currentPodcastData.items.forEach(elem => {
+                this.audioProvider.create(elem);
+            });
         }, err => {
             this.error = err;
         });
@@ -47,19 +46,22 @@ export class HomePage implements OnInit {
     }
 
     onItemClicked(idx: number): void {
-        this.stopSelected();
+        this.unloadCurrentTrack();
         this.currentSelected = idx;
-        console.log('current selected: ', this.currentSelected);
         this.currentBookmarks = this.bookmarks[this.currentPodcastData.items[idx].src];
         this.currentTrack = this.audioProvider.tracks[idx];
-        this.playSelected();
+        this.onPlay();
     }
 
-    playSelected(): void {
+    onPlay(): void {
         this.audioProvider.play(this.currentSelected);
     }
 
-    stopSelected(): void {
+    onPause(): void {
+        this.audioProvider.pause(this.currentSelected);
+    }
+
+    unloadCurrentTrack() : void {
         this.audioProvider.stop(this.currentSelected);
     }
 
