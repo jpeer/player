@@ -1,10 +1,14 @@
+import { IAudioManager } from './audiomanager';
+
 declare let window;
 window.AudioContext = window['AudioContext'] || window['webkitAudioContext'];
 
-export class AudioManager {
+export class WebAudioManager implements IAudioManager {
     private audio : HTMLAudioElement;
     private pendingPlayRequest : boolean = false;
     private postponedLoadingRequest : string;
+    private _duration : number;
+    private _progress: number;
 
     constructor() {
         this.audio = new Audio();
@@ -40,11 +44,16 @@ export class AudioManager {
     }
 
     public get progress() {
-        return this.audio.currentTime;
+        return this._progress;
+    }
+
+    public get duration() {
+        return this._duration;
     }
 
     private onTimeUpdate(e: Event) {
         console.log('onTimeUpdate and audio = ', this.audio.src);
+        this._progress = this.audio.currentTime;
     }
 
     private onError(e: Event) {
@@ -70,6 +79,7 @@ export class AudioManager {
 
     private onDurationChange(e: any) {
         console.log('onDurationChange and audio = ', this.audio.src);
+        this._duration = e.target.duration;
     }
 
 

@@ -2,7 +2,9 @@ import {Component, OnInit} from '@angular/core';
 
 import {NavController} from 'ionic-angular';
 import {DataService} from "../../providers/data-service";
-import {AudioProvider} from '../../app/ionic-audio/ionic-audio.module';
+import {WebAudioManager} from "../../app/webaudiomanager";
+import {NativeAudioManager} from "../../app/nativeaudiomanager";
+import {IAudioManager} from '../../app/audiomanager';
 
 
 @Component({
@@ -17,21 +19,27 @@ export class HomePage implements OnInit {
     file: any = null;
     bookmarks: any = {};
     currentBookmarks: number[] = [];
-    currentTrack : any = null;
+    currentTrack: any = null;
+    pristine: boolean = true;
+    audioManager: IAudioManager;
 
-    constructor(public navCtrl: NavController, private dataService: DataService, private audioProvider: AudioProvider) {
+    constructor(public navCtrl: NavController, private dataService: DataService) {
+    }
+
+    ionViewDidEnter() {
+        if (window.hasOwnProperty('cordova')) {
+            console.log('using cordova plugin for audio');
+            this.audioManager = new NativeAudioManager();
+        } else {
+            console.log('using html5 for audio');
+            this.audioManager = new WebAudioManager();
+        }
     }
 
     ngOnInit(): void {
 
         this.dataService.getActivePodcastData().then(res => {
             this.currentPodcastData = res;
-
-            this.audioProvider.tracks.splice(0, this.audioProvider.tracks.length);
-
-            this.currentPodcastData.items.forEach(elem => {
-                this.audioProvider.create(elem);
-            });
         }, err => {
             this.error = err;
         });
@@ -46,37 +54,38 @@ export class HomePage implements OnInit {
     }
 
     onItemClicked(idx: number): void {
-        this.unloadCurrentTrack();
+        if (this.currentSelected == idx && !this.pristine) {
+            this.audioManager.seekTo(0);
+            return;
+        }
+        this.pristine = false;
+        this.audioManager.loadTrack(this.currentPodcastData.items[idx].src);
         this.currentSelected = idx;
         this.currentBookmarks = this.bookmarks[this.currentPodcastData.items[idx].src];
-        this.currentTrack = this.audioProvider.tracks[idx];
         this.onPlay();
     }
 
     onPlay(): void {
-        this.audioProvider.play(this.currentSelected);
+        this.audioManager.play();
     }
 
     onPause(): void {
-        this.audioProvider.pause(this.currentSelected);
+        this.audioManager.pause();
     }
 
-    unloadCurrentTrack() : void {
-        this.audioProvider.stop(this.currentSelected);
-    }
 
     skipAhead(): void {
-        var progress = this.currentTrack.progress;
-        this.currentTrack.seekTo(progress + 30);
+        var progress = this.audioManager.progress;
+        this.audioManager.seekTo(progress + 30);
     }
 
     skipBack(): void {
-        var progress = this.currentTrack.progress;
-        this.currentTrack.seekTo(progress - 30);
+        var progress = this.audioManager.progress;
+        this.audioManager.seekTo(progress - 30);
     }
 
     addBookmark(): void {
-        this.dataService.addBookmark(this.currentPodcastData.items[this.currentSelected].src, this.currentTrack.progress);
+        this.dataService.addBookmark(this.currentPodcastData.items[this.currentSelected].src, this.audioManager.progress);
     }
 
     removeBookmark(idx: number) {
@@ -85,7 +94,7 @@ export class HomePage implements OnInit {
 
     skipToBookmark(idx: number) {
         var pos = this.currentBookmarks[idx];
-        this.currentTrack.seekTo(pos);
+        this.audioManager.seekTo(pos);
     }
 
 }

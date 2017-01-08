@@ -8,17 +8,9 @@
 </ion-header>
 
 <ion-content *ngIf="currentPodcastData" padding>
-
     <div style="height: 5em"></div>
-
-
     <div>
         <div> Current: {{currentPodcastData.items[currentSelected].title}}</div>
-        <div item-content style="width:100%" *ngIf="currentTrack">
-            <audio-track-progress-bar duration progress [audioTrack]="currentTrack"></audio-track-progress-bar>
-
-
-        </div>
         <div>
             <button ion-button round (click)="skipBack()">-30s</button>
             <button ion-button round (click)="onPlay()"><ion-icon name="play"></ion-icon></button>
@@ -41,7 +33,7 @@
     </div>
 
     <ion-list>
-        <ion-item *ngFor="let track of currentPodcastData.items; let idx = index" (click)="onItemClicked(idx)" ngClass="idx===currentSelected ? 'selected' : null">
+        <ion-item *ngFor="let track of currentPodcastData.items; let idx = index" (click)="onItemClicked(idx)" [class.selected]="idx===currentSelected">
             <ion-thumbnail item-left>
                 <img src="{{track.picUrl}}">
             </ion-thumbnail>
