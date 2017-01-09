@@ -1,7 +1,7 @@
 # podcast player
 
 * written using ionic-2
-* built on top of [ionic-audio](https://github.com/arielfaur/ionic-audio)
+* based on ideas and code found in [ionic-audio](https://github.com/arielfaur/ionic-audio)
 
 
 this is work in progress:
