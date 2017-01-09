@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            All Bookmarks
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <div *ngIf="bookmarks">
+
+        <ion-list *ngFor="let x of bookmarks | keys">
+            <ion-list-header>
+                <ion-thumbnail item-left>
+                    <img src="{{bookmarks[x].metadata.picUrl}}">
+                </ion-thumbnail>
+                <div item-content style="width:100%">
+                    <p><strong>{{bookmarks[x].metadata.title}}</strong></p>
+                </div>
+            </ion-list-header>
+            <ion-item-sliding *ngFor="let pos of bookmarks[x].positions">
+                <ion-item>
+                    {{pos}}
+                </ion-item>
+                <ion-item-options side="right">
+                    <button ion-button color="primary">
+                        <ion-icon name="remove-circle"></ion-icon>
+                        Remove
+                    </button>
+                </ion-item-options>
+
+            </ion-item-sliding>
+
+        </ion-list>
+
+    </div>
+
+
+</ion-content>

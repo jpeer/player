@@ -47,7 +47,7 @@ export class HomePage implements OnInit {
         this.dataService.getBookmarks().subscribe(bm => {
             this.bookmarks = bm;
             if (this.currentPodcastData) {
-                this.currentBookmarks = this.bookmarks[this.currentPodcastData.items[this.currentSelected].src];
+                this.currentBookmarks = this.bookmarks[this.currentPodcastData.items[this.currentSelected].link].positions;
             }
         });
 
@@ -61,7 +61,8 @@ export class HomePage implements OnInit {
         this.pristine = false;
         this.audioManager.loadTrack(this.currentPodcastData.items[idx].src);
         this.currentSelected = idx;
-        this.currentBookmarks = this.bookmarks[this.currentPodcastData.items[idx].src];
+        let bookmarkObj = this.bookmarks[this.currentPodcastData.items[idx].link];
+        this.currentBookmarks = bookmarkObj ? bookmarkObj.positions : [];
         this.onPlay();
     }
 
@@ -84,11 +85,11 @@ export class HomePage implements OnInit {
     }
 
     addBookmark(): void {
-        this.dataService.addBookmark(this.currentPodcastData.items[this.currentSelected].src, this.audioManager.progress);
+        this.dataService.addBookmark(this.currentPodcastData.items[this.currentSelected], this.audioManager.progress);
     }
 
     removeBookmark(idx: number) {
-        this.dataService.removeBookmark(this.currentPodcastData.items[this.currentSelected].src, idx);
+        this.dataService.removeBookmark(this.currentPodcastData.items[this.currentSelected].link, idx);
     }
 
     skipToBookmark(idx: number) {

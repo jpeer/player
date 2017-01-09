@@ -1,25 +1,25 @@
 import {NgModule, ErrorHandler} from '@angular/core';
 import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import {MyApp} from './app.component';
-import {AboutPage} from '../pages/about/about';
-import {ContactPage} from '../pages/contact/contact';
+import {BookmarksPage} from '../pages/bookmarks/bookmarks';
 import {HomePage} from '../pages/home/home';
 import {TabsPage} from '../pages/tabs/tabs';
 import {DataService} from '../providers/data-service'
 import {Storage} from '@ionic/storage';
 import {ProgressBar} from './progressbar';
 import {AudioTimePipe} from "./ionic-audio-time-pipe";
+import {KeysPipe} from "./keys-pipe";
 
 
 @NgModule({
     declarations: [
         MyApp,
-        AboutPage,
-        ContactPage,
+        BookmarksPage,
         HomePage,
         TabsPage,
         ProgressBar,
-        AudioTimePipe
+        AudioTimePipe,
+        KeysPipe
     ],
     imports: [
         IonicModule.forRoot(MyApp, {
@@ -30,8 +30,7 @@ import {AudioTimePipe} from "./ionic-audio-time-pipe";
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
-        AboutPage,
-        ContactPage,
+        BookmarksPage,
         HomePage,
         TabsPage
     ],

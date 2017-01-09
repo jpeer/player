@@ -47,9 +47,10 @@ export class DataService {
     }
 
     addBookmark(item, pos) {
-        let bookmark = this.bookmarks.value[item.link];
+        let bookmark = this.bookmarks.getValue()[item.link];
         if (isUndefined(bookmark)) {
-            this.bookmarks.getValue()[item.link] = {'positions': [], 'metadata': item };
+            bookmark = {'positions': [], 'metadata': item };
+            this.bookmarks.getValue()[item.link] = bookmark;
         }
         bookmark.positions.push(pos);
         this.storage.set(DataService.STORAGE_KEY, this.bookmarks.getValue()).then(val => {this.bookmarks.next(val);})
