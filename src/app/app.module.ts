@@ -6,9 +6,9 @@ import {HomePage} from '../pages/home/home';
 import {TabsPage} from '../pages/tabs/tabs';
 import {DataService} from '../providers/data-service'
 import {Storage} from '@ionic/storage';
-import {ProgressBar} from './progressbar';
-import {AudioTimePipe} from "./ionic-audio-time-pipe";
-import {KeysPipe} from "./keys-pipe";
+import {ProgressBar} from '../components/player/progressbar';
+import {AudioTimePipe} from "../pipes/ionic-audio-time-pipe";
+import {KeysPipe} from "../pipes/keys-pipe";
 import {IAudioManager} from "../providers/audiomanager";
 import {PlayerComponent} from "../components/player/player";
 import {audioProviderfactory} from "../providers/audioproviderfactory";
