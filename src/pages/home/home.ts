@@ -73,7 +73,6 @@ export class HomePage implements OnInit {
         this.audioManager.pause();
     }
 
-
     skipAhead(): void {
         var progress = this.audioManager.progress;
         this.audioManager.seekTo(progress + 30);

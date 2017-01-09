@@ -9,6 +9,8 @@ export class WebAudioManager implements IAudioManager {
     private postponedLoadingRequest : string;
     private _duration : number;
     private _progress: number;
+    private _progressPct: number;
+
 
     constructor() {
         this.audio = new Audio();
@@ -51,8 +53,12 @@ export class WebAudioManager implements IAudioManager {
         return this._duration;
     }
 
+    /* returns number between 0 and 100 */
+    public get progressPct() {
+        return this._progressPct;
+    }
+
     private onTimeUpdate(e: Event) {
-        console.log('onTimeUpdate and audio = ', this.audio.src);
         this._progress = this.audio.currentTime;
     }
 

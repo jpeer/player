@@ -7,6 +7,7 @@ export class NativeAudioManager implements IAudioManager {
     private src : string;
     private _timer : any;
     private _duration : number;
+    private _progressPct: number;
 
     public loadTrack(url : string) {
         this.src = url;
@@ -50,6 +51,11 @@ export class NativeAudioManager implements IAudioManager {
         return this._progress;
     }
 
+    /* returns number between 0 and 100 */
+    public get progressPct() {
+        return this._progressPct;
+    }
+
     private startTimer() {
         this._timer = setInterval(() => {
             if (this._duration===undefined || this._duration < 0) {
@@ -57,7 +63,10 @@ export class NativeAudioManager implements IAudioManager {
             }
 
             this._duration = this.audio.getDuration();
-            this.audio.getCurrentPosition().then((pos) => {this ._progress=pos; console.log('pos=', pos);});
+            this.audio.getCurrentPosition().then((pos) => {
+                this ._progress=pos;
+                this._progressPct=(this._progress/this._duration)*100;
+            });
 
         }, 1000);
     }
