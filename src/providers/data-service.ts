@@ -21,7 +21,8 @@ export class DataService {
     }
 
     getPodcastUrls() {
-        return ['http://gdjb.podbean.com/feed/'];
+        //return ['http://gdjb.podbean.com/feed/'];
+        return ['http://franetic.podbean.com/feed'];
     }
 
     getActivePodcast() {

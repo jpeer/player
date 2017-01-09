@@ -1,5 +1,14 @@
 var rss = require('./rss');
 
-rss.getFeed('http://gdjb.podbean.com/feed/').then(
-    function(result) { console.log(result); },
-    function(err) { console.log(err); });
+//var feeds = ['http://franetic.podbean.com/feed/', 'http://gdjb.podbean.com/feed/'];
+var feeds = ['http://franetic.podbean.com/feed/'];
+
+feeds.forEach(function (feed) {
+    rss.getFeed(feed).then(
+        function (result) {
+            console.log(result);
+        },
+        function (err) {
+            console.log(err);
+        });
+});

@@ -28,7 +28,7 @@ var getFeed = function(url) {
 
                 if(err) { reject(Error("xml/rss parsing failed")); }
 
-                //console.log(JSON.stringify(result, null, 2));
+                console.log(JSON.stringify(result, null, 2));
 
                 var root = result.rss.channel[0];
                 var title = root['title'][0];
@@ -37,10 +37,15 @@ var getFeed = function(url) {
                 var items = [];
 
                 itemsObj.forEach(function (item) {
-                    var src = item['enclosure'][0]['$']['url'];
-                    var title = item['title'][0];
-                    var picUrl = item['itunes:image'][0]['$']['href'];
-                    items.push({ title: title, src: src, picUrl : picUrl });
+                    if(item['enclosure']) {
+                        var src = item['enclosure'][0]['$']['url'];
+                        var title = item['title'][0];
+                        var picUrl = item['itunes:image'] ? item['itunes:image'][0]['$']['href'] : undefined;
+                        items.push({ title: title, src: src, picUrl : picUrl });
+                    } else {
+                        console.log('skipping item');
+                    }
+
                 });
 
                 var result = {
