@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 
-import { HomePage } from '../home/home';
 import { BookmarksPage } from '../bookmarks/bookmarks';
+import {PodcastsPage} from "../podcasts/podcasts";
 
 @Component({
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
-  // this tells the tabs component which Pages
-  // should be each tab's root Page
-  tab1Root: any = HomePage;
+
+  tab1Root: any = PodcastsPage;
   tab2Root: any = BookmarksPage;
 
   constructor() {

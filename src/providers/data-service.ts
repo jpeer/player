@@ -21,6 +21,19 @@ export class DataService {
         });
     }
 
+    getPodcastsMetaData() : any[] {
+        return [
+            {
+                title: 'Franetic podcast',
+                feed: 'http://franetic.podbean.com/feed'
+            },
+            {
+                title: 'GDJB podcast',
+                feed: 'http://gdjb.podbean.com/feed'
+            }
+        ];
+    }
+
     getPodcastUrls() {
         //return ['http://gdjb.podbean.com/feed/'];
         return ['http://franetic.podbean.com/feed'];

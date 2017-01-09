@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {NavController} from 'ionic-angular';
+import {NavController, NavParams} from 'ionic-angular';
 import {DataService} from "../../providers/data-service";
 import {IAudioManager} from '../../providers/audiomanager';
 
@@ -10,6 +10,7 @@ import {IAudioManager} from '../../providers/audiomanager';
 })
 export class HomePage implements OnInit {
 
+    currentPodcast: any;
     currentPodcastData: any;
     error: string;
     currentSelected: number = 0;
@@ -17,13 +18,13 @@ export class HomePage implements OnInit {
     currentBookmarks: number[] = [];
     currentItem: any = null;
 
-    constructor(public navCtrl: NavController, private dataService: DataService, private audioManager: IAudioManager) {
+    constructor(public navCtrl: NavController, params: NavParams, private dataService: DataService, private audioManager: IAudioManager) {
+        this.currentPodcast = params.data.podcast;
     }
-
 
     ngOnInit(): void {
 
-        this.dataService.getActivePodcastData().then(res => {
+        this.dataService.getPodcastData(this.currentPodcast.feed).then(res => {
             this.currentPodcastData = res;
         }, err => {
             this.error = err;

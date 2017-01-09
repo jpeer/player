@@ -12,11 +12,13 @@ import {KeysPipe} from "../pipes/keys-pipe";
 import {IAudioManager} from "../providers/audiomanager";
 import {PlayerComponent} from "../components/player/player";
 import {audioProviderfactory} from "../providers/audioproviderfactory";
+import {PodcastsPage} from "../pages/podcasts/podcasts";
 
 
 @NgModule({
     declarations: [
         MyApp,
+        PodcastsPage,
         BookmarksPage,
         HomePage,
         TabsPage,
@@ -34,6 +36,7 @@ import {audioProviderfactory} from "../providers/audioproviderfactory";
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
+        PodcastsPage,
         BookmarksPage,
         HomePage,
         TabsPage
