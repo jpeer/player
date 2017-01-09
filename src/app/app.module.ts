@@ -9,6 +9,9 @@ import {Storage} from '@ionic/storage';
 import {ProgressBar} from './progressbar';
 import {AudioTimePipe} from "./ionic-audio-time-pipe";
 import {KeysPipe} from "./keys-pipe";
+import {IAudioManager} from "../providers/audiomanager";
+import {PlayerComponent} from "../components/player/player";
+import {audioProviderfactory} from "../providers/audioproviderfactory";
 
 
 @NgModule({
@@ -19,7 +22,8 @@ import {KeysPipe} from "./keys-pipe";
         TabsPage,
         ProgressBar,
         AudioTimePipe,
-        KeysPipe
+        KeysPipe,
+        PlayerComponent
     ],
     imports: [
         IonicModule.forRoot(MyApp, {
@@ -36,7 +40,8 @@ import {KeysPipe} from "./keys-pipe";
     ],
     providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
         DataService,
-        Storage
+        Storage,
+        {provide: IAudioManager, useFactory: audioProviderfactory}
     ]
 })
 export class AppModule {

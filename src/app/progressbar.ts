@@ -1,5 +1,5 @@
 import {Component, Input, DoCheck} from '@angular/core'
-import {IAudioManager} from "./audiomanager";
+import {IAudioManager} from "../providers/audiomanager";
 
 @Component({
     selector: 'progress-bar',

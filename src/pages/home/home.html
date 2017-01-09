@@ -10,21 +10,9 @@
 <ion-content padding>
     <div *ngIf="currentPodcastData">
     <div>
-        <div> Current: {{currentPodcastData.items[currentSelected].title}}</div>
 
-        <div *ngIf="audioManager">
-            <progress-bar [audioManager]="audioManager"></progress-bar>
-        </div>
-        <div>
-            <button ion-button round (click)="skipBack()">-30s</button>
-            <button ion-button round (click)="onPlay()">
-                <ion-icon name="play"></ion-icon>
-            </button>
-            <button ion-button round (click)="onPause()">
-                <ion-icon name="pause"></ion-icon>
-            </button>
-            <button ion-button round (click)="skipAhead()">+30s</button>
-        </div>
+        <player [currentItem]="currentItem"></player>
+
         <div>
             <button ion-button round (click)="addBookmark()">Add bookmark</button>
             <ion-list>

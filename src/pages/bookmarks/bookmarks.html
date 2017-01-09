@@ -10,6 +10,8 @@
 
     <div *ngIf="bookmarks">
 
+        <player [currentItem]="currentItem"></player>
+
         <ion-list *ngFor="let x of bookmarks | keys">
             <ion-list-header>
                 <ion-thumbnail item-left>
@@ -19,12 +21,12 @@
                     <p><strong>{{bookmarks[x].metadata.title}}</strong></p>
                 </div>
             </ion-list-header>
-            <ion-item-sliding *ngFor="let pos of bookmarks[x].positions">
-                <ion-item>
+            <ion-item-sliding *ngFor="let pos of bookmarks[x].positions; let idx = index">
+                <ion-item (click)="onClick(bookmarks[x].metadata.link, idx)">
                     {{pos}}
                 </ion-item>
                 <ion-item-options side="right">
-                    <button ion-button color="primary">
+                    <button ion-button color="primary" (click)="removeBookmark(bookmarks[x].metadata.link, idx)">
                         <ion-icon name="remove-circle"></ion-icon>
                         Remove
                     </button>

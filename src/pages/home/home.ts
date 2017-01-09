@@ -2,10 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 import {NavController} from 'ionic-angular';
 import {DataService} from "../../providers/data-service";
-import {WebAudioManager} from "../../app/webaudiomanager";
-import {NativeAudioManager} from "../../app/nativeaudiomanager";
-import {IAudioManager} from '../../app/audiomanager';
-
+import {IAudioManager} from '../../providers/audiomanager';
 
 @Component({
     selector: 'page-home',
@@ -16,25 +13,13 @@ export class HomePage implements OnInit {
     currentPodcastData: any;
     error: string;
     currentSelected: number = 0;
-    file: any = null;
     bookmarks: any = {};
     currentBookmarks: number[] = [];
-    currentTrack: any = null;
-    pristine: boolean = true;
-    audioManager: IAudioManager;
+    currentItem: any = null;
 
-    constructor(public navCtrl: NavController, private dataService: DataService) {
+    constructor(public navCtrl: NavController, private dataService: DataService, private audioManager: IAudioManager) {
     }
 
-    ionViewDidEnter() {
-        if (window.hasOwnProperty('cordova')) {
-            console.log('using cordova plugin for audio');
-            this.audioManager = new NativeAudioManager();
-        } else {
-            console.log('using html5 for audio');
-            this.audioManager = new WebAudioManager();
-        }
-    }
 
     ngOnInit(): void {
 
@@ -50,38 +35,13 @@ export class HomePage implements OnInit {
                 this.currentBookmarks = this.bookmarks[this.currentPodcastData.items[this.currentSelected].link].positions;
             }
         });
-
     }
 
     onItemClicked(idx: number): void {
-        if (this.currentSelected == idx && !this.pristine) {
-            this.audioManager.seekTo(0);
-            return;
-        }
-        this.pristine = false;
-        this.audioManager.loadTrack(this.currentPodcastData.items[idx].src);
         this.currentSelected = idx;
         let bookmarkObj = this.bookmarks[this.currentPodcastData.items[idx].link];
         this.currentBookmarks = bookmarkObj ? bookmarkObj.positions : [];
-        this.onPlay();
-    }
-
-    onPlay(): void {
-        this.audioManager.play();
-    }
-
-    onPause(): void {
-        this.audioManager.pause();
-    }
-
-    skipAhead(): void {
-        var progress = this.audioManager.progress;
-        this.audioManager.seekTo(progress + 30);
-    }
-
-    skipBack(): void {
-        var progress = this.audioManager.progress;
-        this.audioManager.seekTo(progress - 30);
+        this.currentItem = this.currentPodcastData.items[idx];
     }
 
     addBookmark(): void {
