@@ -22,7 +22,10 @@ import {AudioTimePipe} from "./ionic-audio-time-pipe";
         AudioTimePipe
     ],
     imports: [
-        IonicModule.forRoot(MyApp)
+        IonicModule.forRoot(MyApp, {
+            tabsPlacement: 'bottom',
+
+        })
     ],
     bootstrap: [IonicApp],
     entryComponents: [

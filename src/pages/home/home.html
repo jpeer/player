@@ -16,8 +16,12 @@
         </div>
         <div>
             <button ion-button round (click)="skipBack()">-30s</button>
-            <button ion-button round (click)="onPlay()"><ion-icon name="play"></ion-icon></button>
-            <button ion-button round (click)="onPause()"><ion-icon name="pause"></ion-icon></button>
+            <button ion-button round (click)="onPlay()">
+                <ion-icon name="play"></ion-icon>
+            </button>
+            <button ion-button round (click)="onPause()">
+                <ion-icon name="pause"></ion-icon>
+            </button>
             <button ion-button round (click)="skipAhead()">+30s</button>
         </div>
         <div>
@@ -36,7 +40,8 @@
     </div>
 
     <ion-list>
-        <ion-item *ngFor="let track of currentPodcastData.items; let idx = index" (click)="onItemClicked(idx)" [class.selected]="idx===currentSelected">
+        <ion-item *ngFor="let track of currentPodcastData.items; let idx = index" (click)="onItemClicked(idx)"
+                  [class.selected]="idx===currentSelected">
             <ion-thumbnail item-left>
                 <img src="{{track.picUrl}}">
             </ion-thumbnail>
@@ -47,3 +52,5 @@
     </ion-list>
 
 </ion-content>
+
+

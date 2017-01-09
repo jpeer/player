@@ -8,11 +8,12 @@ import {Observable, BehaviorSubject} from 'rxjs';
 @Injectable()
 export class DataService {
 
+    static readonly STORAGE_KEY = 'bookmarks.v2';
     activePodcast: string = null;
     bookmarks = new BehaviorSubject({});
 
     constructor(private storage: Storage) {
-        storage.get('bookmarks').then((bookmarks) => {
+        storage.get(DataService.STORAGE_KEY).then((bookmarks) => {
             console.log('loaded bookmarks: ', JSON.stringify(bookmarks, null, 2));
             if (bookmarks) {
                 this.bookmarks.next(bookmarks);
@@ -45,24 +46,30 @@ export class DataService {
         return this.bookmarks.asObservable();
     }
 
-    addBookmark(url, pos) {
-        let positions = this.bookmarks.value[url];
-        if (isUndefined(positions)) {
-            positions = [];
-            this.bookmarks.getValue()[url] = positions;
+    addBookmark(item, pos) {
+        let bookmark = this.bookmarks.value[item.link];
+        if (isUndefined(bookmark)) {
+            this.bookmarks.getValue()[item.link] = {'positions': [], 'metadata': item };
         }
-        positions.push(pos);
-        this.storage.set('bookmarks', this.bookmarks.getValue()).then(val => {this.bookmarks.next(val);})
+        bookmark.positions.push(pos);
+        this.storage.set(DataService.STORAGE_KEY, this.bookmarks.getValue()).then(val => {this.bookmarks.next(val);})
     }
 
-    removeBookmark(url, idx) {
-        let positions = this.bookmarks.value[url];
+    /* URI: the logical link of the podcast episode, not the physical mp3 URL */
+    removeBookmark(uri, idx) {
+        let bookmark = this.bookmarks.value[uri];
+        let positions = bookmark['positions'];
         if (isUndefined(positions) || positions.length < idx - 1) {
             console.log('something wrong');
             return;
         }
 
         positions.splice(idx, 1);
+
+        if(positions.length === 0) {
+            delete this.bookmarks.value[uri];
+        }
+
         this.storage.set('bookmarks', this.bookmarks.getValue()).then(val => {this.bookmarks.next(val);})
     }
 

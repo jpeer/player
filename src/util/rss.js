@@ -41,7 +41,8 @@ var getFeed = function(url) {
                         var src = item['enclosure'][0]['$']['url'];
                         var title = item['title'][0];
                         var picUrl = item['itunes:image'] ? item['itunes:image'][0]['$']['href'] : undefined;
-                        items.push({ title: title, src: src, picUrl : picUrl });
+                        var link = item['link'][0];
+                        items.push({ title: title, src: src, picUrl : picUrl, link: link });
                     } else {
                         console.log('skipping item');
                     }
