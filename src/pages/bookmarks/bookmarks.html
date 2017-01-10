@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <ion-title>
-            All Bookmarks
+            Bookmarks
         </ion-title>
     </ion-navbar>
 </ion-header>
@@ -22,11 +22,13 @@
                 </div>
             </ion-list-header>
             <ion-item-sliding *ngFor="let pos of bookmarks[x].positions; let idx = index">
+
                 <ion-item (click)="onClick(bookmarks[x].metadata.link, idx)">
-                    {{pos}}
+                    #{{(idx+1)}} - {{pos | audioTime}}
                 </ion-item>
-                <ion-item-options side="right">
-                    <button ion-button color="primary" (click)="removeBookmark(bookmarks[x].metadata.link, idx)">
+
+                <ion-item-options side="right" (ionSwipe)="removeBookmark(bookmarks[x].metadata.link, idx)">
+                    <button ion-button color="primary" expandable (click)="removeBookmark(bookmarks[x].metadata.link, idx)">
                         <ion-icon name="remove-circle"></ion-icon>
                         Remove
                     </button>

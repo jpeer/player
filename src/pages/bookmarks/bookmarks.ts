@@ -20,8 +20,9 @@ export class BookmarksPage implements OnInit {
 
     ngOnInit() {
         this.dataService.getBookmarks().subscribe((bm) => {
-            this.bookmarks = bm;
-        })
+            console.log('bookmarks got updated');
+            this.bookmarks = Object.assign({}, bm);
+        });
     }
 
     removeBookmark(uri: string, idx: number) {

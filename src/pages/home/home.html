@@ -15,16 +15,6 @@
 
         <div>
             <button ion-button round (click)="addBookmark()">Add bookmark</button>
-            <ion-list>
-                <ion-item *ngFor="let bm of currentBookmarks; let idx = index" (click)="skipToBookmark(idx)">
-                    <div item-content style="width:100%">
-                        <p><strong>{{bm}}</strong></p>
-                    </div>
-                    <div item-right>
-                        <button ion-button round (click)="removeBookmark(idx)">x</button>
-                    </div>
-                </ion-item>
-            </ion-list>
         </div>
     </div>
 
