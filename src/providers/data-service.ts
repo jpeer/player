@@ -30,6 +30,14 @@ export class DataService {
             {
                 title: 'GDJB podcast',
                 feed: 'http://gdjb.podbean.com/feed'
+            },
+            {
+                title: 'The generation why podcast',
+                feed: 'http://thegenerationwhypodcast.com/feed/category/podcast'
+            },
+            {
+                title: 'The history of Rome',
+                feed: 'http://historyofrome.libsyn.com/rss'
             }
         ];
     }

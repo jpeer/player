@@ -13,12 +13,14 @@ import {IAudioManager} from "../providers/audiomanager";
 import {PlayerComponent} from "../components/player/player";
 import {audioProviderfactory} from "../providers/audioproviderfactory";
 import {PodcastsPage} from "../pages/podcasts/podcasts";
+import {SearchPage} from "../pages/search/search";
 
 
 @NgModule({
     declarations: [
         MyApp,
         PodcastsPage,
+        SearchPage,
         BookmarksPage,
         HomePage,
         TabsPage,
@@ -37,6 +39,7 @@ import {PodcastsPage} from "../pages/podcasts/podcasts";
     entryComponents: [
         MyApp,
         PodcastsPage,
+        SearchPage,
         BookmarksPage,
         HomePage,
         TabsPage

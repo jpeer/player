@@ -1,7 +1,8 @@
 var rss = require('./rss');
 
-var feeds = ['http://gdjb.podbean.com/feed/'];
+//var feeds = ['http://gdjb.podbean.com/feed/'];
 // var feeds = ['http://franetic.podbean.com/feed/'];
+var feeds = ['http://feeds.feedburner.com/MarkusSchulzGlobalDJBroadcast'];
 
 feeds.forEach(function (feed) {
     rss.getFeed(feed).then(

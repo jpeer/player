@@ -9,12 +9,12 @@
 
 <ion-content padding>
 
+  <button ion-button round (click)="openSearchPage()">Search Podcasts</button>
+
   <ion-list>
     <button ion-item *ngFor="let item of podcastsMetadata" (click)="openNavDetailsPage(item)">
       {{ item.title }}
     </button>
   </ion-list>
-
-
 
 </ion-content>
