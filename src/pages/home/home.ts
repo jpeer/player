@@ -5,6 +5,7 @@ import {DataService} from "../../providers/data-service";
 import {IAudioManager} from '../../providers/audiomanager';
 import {Toast} from 'ionic-native';
 import {AudioTimePipe} from "../../pipes/ionic-audio-time-pipe";
+import {IPodcast} from "../../providers/podcast";
 
 
 @Component({
@@ -13,7 +14,7 @@ import {AudioTimePipe} from "../../pipes/ionic-audio-time-pipe";
 })
 export class HomePage implements OnInit {
 
-    currentPodcast: any;
+    currentPodcast: IPodcast;
     currentPodcastData: any;
     error: string;
     currentSelected: number = 0;

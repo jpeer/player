@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {URLSearchParams, Jsonp, Response} from '@angular/http';
+import {IPodcast} from "./podcast";
 
 @Injectable()
 export class SearchService {
@@ -10,7 +11,7 @@ export class SearchService {
     constructor(private jsonp: Jsonp) {
     }
 
-    extractData(res: Response): any[] {
+    extractData(res: Response): IPodcast[] {
 
         console.log(res.json());
 
@@ -21,7 +22,7 @@ export class SearchService {
 
     }
 
-    findPodcasts(searchTerm: string): Observable<any[]> {
+    findPodcasts(searchTerm: string): Observable<IPodcast[]> {
 
         let params = new URLSearchParams('entity=podcast&media=podcast&callback=JSONP_CALLBACK');
         params.set('term', searchTerm);

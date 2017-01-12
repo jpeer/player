@@ -3,14 +3,17 @@ import {getFeed} from '../util/rss';
 import {Storage} from '@ionic/storage';
 import {isUndefined} from "ionic-angular/util/util";
 import {Observable, BehaviorSubject} from 'rxjs';
+import {IPodcast} from "./podcast";
 
 
 @Injectable()
 export class DataService {
 
     static readonly STORAGE_KEY = 'bookmarks.v2';
+    static readonly PODCASTS_KEY = 'podcasts';
     activePodcast: string = null;
     bookmarks = new BehaviorSubject({});
+    podcastsMetaData = new BehaviorSubject<Map<string, IPodcast>>(new Map());
 
     constructor(private storage: Storage) {
         storage.get(DataService.STORAGE_KEY).then((bookmarks) => {
@@ -19,38 +22,29 @@ export class DataService {
                 this.bookmarks.next(bookmarks);
             }
         });
-    }
 
-    getPodcastsMetaData() : any[] {
-        return [
-            {
-                title: 'Franetic podcast',
-                feed: 'http://franetic.podbean.com/feed'
-            },
-            {
-                title: 'GDJB podcast',
-                feed: 'http://gdjb.podbean.com/feed'
-            },
-            {
-                title: 'The generation why podcast',
-                feed: 'http://thegenerationwhypodcast.com/feed/category/podcast'
-            },
-            {
-                title: 'The history of Rome',
-                feed: 'http://historyofrome.libsyn.com/rss'
+        storage.get(DataService.PODCASTS_KEY).then(podcasts => {
+            if(podcasts){
+                this.podcastsMetaData.next(podcasts);
             }
-        ];
+        });
     }
 
-    getPodcastUrls() {
-        //return ['http://gdjb.podbean.com/feed/'];
-        return ['http://franetic.podbean.com/feed'];
+    getPodcastsMetaData() : Observable<Map<string, IPodcast>> {
+        return this.podcastsMetaData.asObservable();
+    }
+
+    addPodcastMetaData(podcast : IPodcast) {
+        this.podcastsMetaData.getValue().set(podcast.feed, podcast);
+        this.storage.set(DataService.PODCASTS_KEY, this.podcastsMetaData.getValue()).then(val => {this.podcastsMetaData.next(val);})
+    }
+
+    removePodcastMetaData(feedUri : string) {
+        this.podcastsMetaData.getValue().delete(feedUri);
+        this.storage.set(DataService.STORAGE_KEY, this.podcastsMetaData.getValue()).then(val => {this.podcastsMetaData.next(val);})
     }
 
     getActivePodcast() {
-        if (!this.activePodcast) {
-            this.activePodcast = this.getPodcastUrls()[0];
-        }
         return this.activePodcast;
     }
 
@@ -92,7 +86,7 @@ export class DataService {
             delete this.bookmarks.value[uri];
         }
 
-        this.storage.set('bookmarks', this.bookmarks.getValue()).then(val => {this.bookmarks.next(val);})
+        this.storage.set(DataService.STORAGE_KEY, this.bookmarks.getValue()).then(val => {this.bookmarks.next(val);})
     }
 
 }

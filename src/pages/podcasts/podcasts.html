@@ -12,9 +12,21 @@
   <button ion-button round (click)="openSearchPage()">Search Podcasts</button>
 
   <ion-list>
-    <button ion-item *ngFor="let item of podcastsMetadata" (click)="openNavDetailsPage(item)">
-      {{ item.title }}
-    </button>
+
+    <ion-item-sliding *ngFor="let item of podcastsMetadata | mapValues" >
+
+      <ion-item (click)="openNavDetailsPage(item.val)">
+        {{ item.val.title }}
+      </ion-item>
+
+      <ion-item-options side="right" (ionSwipe)="removePodcastMetadata(item.val.feed)">
+        <button ion-button color="primary" expandable (click)="removePodcastMetadata(item.val.feed)">
+          <ion-icon name="remove-circle"></ion-icon>
+          Remove
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
   </ion-list>
 
 </ion-content>

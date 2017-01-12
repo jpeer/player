@@ -1,64 +1,41 @@
-var request = require('request'),
-    xml2js = require('xml2js');
+var request = require('request');
+var FeedParser = require('feedparser');
 
+var getFeed = function (url) {
 
-var getFeed = function(url) {
+    return new Promise(function (resolve, reject) {
 
-    //console.log('trying to download from: ', url);
+        var title = '';
+        var items = [];
 
-    var parser = new xml2js.Parser();
-/*
-
- export interface ITrackConstraint {
- id?:number;
- src: string;
- title?: string;
- artist?: string;
- art?: string;
- preload?: string;
- }
- */
-    return new Promise(function(resolve, reject) {
-
-        request(url, function (err, res, body) {
-
-            if(err) { reject(Error("http download failed")); }
-
-            parser.parseString(body, function (err, result) {
-
-                if(err) { reject(Error("xml/rss parsing failed")); }
-
-                console.log(JSON.stringify(result, null, 2));
-
-                var root = result.rss.channel[0];
-                var title = root['title'][0];
-                var itemsObj = root['item'];
-
-                var items = [];
-
-                itemsObj.forEach(function (item) {
-                    if(item['enclosure']) {
-                        var src = item['enclosure'][0]['$']['url'];
-                        var title = item['title'][0];
-                        var picUrl = item['itunes:image'] ? item['itunes:image'][0]['$']['href'] : undefined;
-                        var link = item['link'][0];
-                        items.push({ title: title, src: src, picUrl : picUrl, link: link });
-                    } else {
-                        console.log('skipping item');
-                    }
-
-                });
-
-                var result = {
-                    title: title,
-                    items: items
-                };
-
-                resolve(result);
+        request.get(url)
+            .on('error', function (error) {
+                console.error(error);
+                reject(error);
+            })
+            .pipe(new FeedParser())
+            .on('error', function (error) {
+                console.error(error);
+                reject(error);
+            })
+            .on('meta', function (meta) {
+                title = meta.title;
+            })
+            .on('readable', function () {
+                var stream = this, item;
+                while (item = stream.read()) {
+                    items.push({
+                        title: item.title,
+                        src: item.enclosures[0].url,
+                        picUrl: item.image.url,
+                        link: item.link
+                    });
+                }
+            })
+            .on('end', function () {
+                 resolve({title: title, items: items})
             });
-        });
     });
+}
 
-};
-
-module.exports = { getFeed : getFeed };
+module.exports = { getFeed: getFeed };

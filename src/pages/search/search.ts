@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {SearchService} from "../../providers/search-service";
 import {HomePage} from "../home/home";
+import {DataService} from "../../providers/data-service";
 
 @Component({
     selector: 'page-search',
@@ -12,7 +13,7 @@ export class SearchPage {
     private searchResults: any[] = [];
     private searchQuery: string = '';
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private searchService: SearchService) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private searchService: SearchService, private dataService: DataService) {
     }
 
     ionViewDidLoad() {
@@ -24,7 +25,7 @@ export class SearchPage {
         console.log('searchByKeyword: ', JSON.stringify(event));
         console.log('searchQuery: ', this.searchQuery);
 
-        if(this.searchQuery.trim().length == 0) {
+        if (this.searchQuery.trim().length == 0) {
             return;
         }
 
@@ -34,6 +35,8 @@ export class SearchPage {
     }
 
     openHomePage(item) {
-        this.navCtrl.push(HomePage, { podcast: item });
+        console.log('opening now: ', JSON.stringify(item));
+        this.dataService.addPodcastMetaData(item);
+        this.navCtrl.push(HomePage, {podcast: item});
     }
 }

@@ -16,6 +16,7 @@ import {PodcastsPage} from "../pages/podcasts/podcasts";
 import {SearchPage} from "../pages/search/search";
 import {SearchService} from "../providers/search-service";
 import {JsonpModule} from "@angular/http";
+import {MapValuesPipe} from "../pipes/mapvalues-pipe";
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import {JsonpModule} from "@angular/http";
         ProgressBar,
         AudioTimePipe,
         KeysPipe,
+        MapValuesPipe,
         PlayerComponent
     ],
     imports: [
