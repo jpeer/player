@@ -14,6 +14,8 @@ import {PlayerComponent} from "../components/player/player";
 import {audioProviderfactory} from "../providers/audioproviderfactory";
 import {PodcastsPage} from "../pages/podcasts/podcasts";
 import {SearchPage} from "../pages/search/search";
+import {SearchService} from "../providers/search-service";
+import {JsonpModule} from "@angular/http";
 
 
 @NgModule({
@@ -30,6 +32,7 @@ import {SearchPage} from "../pages/search/search";
         PlayerComponent
     ],
     imports: [
+        JsonpModule,
         IonicModule.forRoot(MyApp, {
             tabsPlacement: 'bottom',
 
@@ -47,7 +50,8 @@ import {SearchPage} from "../pages/search/search";
     providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
         DataService,
         Storage,
-        {provide: IAudioManager, useFactory: audioProviderfactory}
+        {provide: IAudioManager, useFactory: audioProviderfactory},
+        SearchService
     ]
 })
 export class AppModule {
