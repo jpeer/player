@@ -10,7 +10,7 @@
 
 <ion-content padding>
 
-  <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="searchByKeyword($event)" [showCancelButton]="true" [debounce]="400"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="searchByKeyword($event)" [showCancelButton]="true" [debounce]="750"></ion-searchbar>
 
   <ion-list>
     <button ion-item *ngFor="let item of searchResults" (click)="openHomePage(item)">

@@ -24,6 +24,7 @@ var getFeed = function (url) {
             .on('readable', function () {
                 var stream = this, item;
                 while (item = stream.read()) {
+                    if(item.enclosures.length == 0) { continue; }
                     items.push({
                         title: item.title,
                         src: item.enclosures[0].url,

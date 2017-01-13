@@ -16,14 +16,7 @@ export class SearchPage {
     constructor(public navCtrl: NavController, public navParams: NavParams, private searchService: SearchService, private dataService: DataService) {
     }
 
-    ionViewDidLoad() {
-        console.log('ionViewDidLoad SearchPage');
-    }
-
     searchByKeyword(event: any) {
-
-        console.log('searchByKeyword: ', JSON.stringify(event));
-        console.log('searchQuery: ', this.searchQuery);
 
         if (this.searchQuery.trim().length == 0) {
             return;
