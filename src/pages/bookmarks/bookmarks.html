@@ -10,25 +10,23 @@
 
     <div *ngIf="bookmarks">
 
-        <player [currentItem]="currentItem"></player>
-
-        <ion-list *ngFor="let x of bookmarks | keys">
+        <ion-list *ngFor="let x of bookmarks | mapValues">
             <ion-list-header>
                 <ion-thumbnail item-left>
-                    <img src="{{bookmarks[x].metadata.picUrl}}">
+                    <img src="{{x.val.metadata.picUrl}}">
                 </ion-thumbnail>
                 <div item-content style="width:100%">
-                    <p><strong>{{bookmarks[x].metadata.title}}</strong></p>
+                    <p><strong>{{x.val.metadata.title}}</strong></p>
                 </div>
             </ion-list-header>
-            <ion-item-sliding *ngFor="let pos of bookmarks[x].positions; let idx = index">
+            <ion-item-sliding *ngFor="let pos of x.val.positions; let idx = index">
 
-                <ion-item (click)="onClick(bookmarks[x].metadata.link, idx)">
+                <ion-item (click)="onClick(x.val.metadata.link, idx)">
                     #{{(idx+1)}} - {{pos | audioTime}}
                 </ion-item>
 
-                <ion-item-options side="right" (ionSwipe)="removeBookmark(bookmarks[x].metadata.link, idx)">
-                    <button ion-button color="primary" expandable (click)="removeBookmark(bookmarks[x].metadata.link, idx)">
+                <ion-item-options side="right" (ionSwipe)="removeBookmark(x.val.metadata.link, idx)">
+                    <button ion-button color="primary" expandable (click)="removeBookmark(x.val.metadata.link, idx)">
                         <ion-icon name="remove-circle"></ion-icon>
                         Remove
                     </button>

@@ -4,6 +4,8 @@ import {NavController} from 'ionic-angular';
 import {DataService} from "../../providers/data-service";
 import {IAudioManager} from "../../providers/audiomanager";
 import {isUndefined} from "ionic-angular/util/util";
+import {PlayerPage} from "../player/player";
+import {IBookmark} from "../../providers/podcast";
 
 @Component({
     selector: 'page-bookmarks',
@@ -11,8 +13,7 @@ import {isUndefined} from "ionic-angular/util/util";
 })
 export class BookmarksPage implements OnInit {
 
-    bookmarks: any;
-    currentItem: any = null;
+    bookmarks: Map<string, IBookmark> = new Map();
 
     constructor(public navCtrl: NavController, private dataService: DataService, private audioManager: IAudioManager) {
 
@@ -21,7 +22,7 @@ export class BookmarksPage implements OnInit {
     ngOnInit() {
         this.dataService.getBookmarks().subscribe((bm) => {
             console.log('bookmarks got updated');
-            this.bookmarks = Object.assign({}, bm);
+            this.bookmarks = new Map<string, IBookmark>(bm);
         });
     }
 
@@ -30,13 +31,12 @@ export class BookmarksPage implements OnInit {
     }
 
     onClick(uri: string, idx: number) {
-        let bm = this.bookmarks[uri];
+        let bm = this.bookmarks.get(uri);
         if(isUndefined(bm)) {
             return;
         }
 
-        this.currentItem = bm.metadata;
-        this.audioManager.seekTo(bm.positions[idx]);
+        this.navCtrl.push(PlayerPage, { track : bm.metadata, seekTo: bm.positions[idx]});
     }
 
 }

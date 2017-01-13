@@ -3,6 +3,7 @@ import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import {MyApp} from './app.component';
 import {BookmarksPage} from '../pages/bookmarks/bookmarks';
 import {HomePage} from '../pages/home/home';
+import {PlayerPage} from '../pages/player/player';
 import {TabsPage} from '../pages/tabs/tabs';
 import {DataService} from '../providers/data-service'
 import {Storage} from '@ionic/storage';
@@ -26,6 +27,7 @@ import {MapValuesPipe} from "../pipes/mapvalues-pipe";
         SearchPage,
         BookmarksPage,
         HomePage,
+        PlayerPage,
         TabsPage,
         ProgressBar,
         AudioTimePipe,
@@ -47,6 +49,7 @@ import {MapValuesPipe} from "../pipes/mapvalues-pipe";
         SearchPage,
         BookmarksPage,
         HomePage,
+        PlayerPage,
         TabsPage
     ],
     providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},

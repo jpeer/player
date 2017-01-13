@@ -3,16 +3,16 @@ import {getFeed} from '../util/rss';
 import {Storage} from '@ionic/storage';
 import {isUndefined} from "ionic-angular/util/util";
 import {Observable, BehaviorSubject} from 'rxjs';
-import {IPodcast} from "./podcast";
+import {IPodcast, IBookmark} from "./podcast";
 
 
 @Injectable()
 export class DataService {
 
-    static readonly STORAGE_KEY = 'bookmarks.v2';
+    static readonly STORAGE_KEY = 'bookmarks.v3';
     static readonly PODCASTS_KEY = 'podcasts';
     activePodcast: string = null;
-    bookmarks = new BehaviorSubject({});
+    bookmarks = new BehaviorSubject<Map<string, IBookmark>>(new Map());
     podcastsMetaData = new BehaviorSubject<Map<string, IPodcast>>(new Map());
 
     constructor(private storage: Storage) {
@@ -62,10 +62,11 @@ export class DataService {
     }
 
     addBookmark(item, pos) {
-        let bookmark = this.bookmarks.getValue()[item.link];
+        console.log('addBookmark:', JSON.stringify(item))
+        let bookmark = this.bookmarks.getValue().get(item.link);
         if (isUndefined(bookmark)) {
             bookmark = {'positions': [], 'metadata': item };
-            this.bookmarks.getValue()[item.link] = bookmark;
+            this.bookmarks.getValue().set(item.link, bookmark);
         }
         bookmark.positions.push(pos);
         this.storage.set(DataService.STORAGE_KEY, this.bookmarks.getValue()).then(val => {this.bookmarks.next(val);})
@@ -73,7 +74,7 @@ export class DataService {
 
     /* URI: the logical link of the podcast episode, not the physical mp3 URL */
     removeBookmark(uri, idx) {
-        let bookmark = this.bookmarks.value[uri];
+        let bookmark = this.bookmarks.value.get(uri);
         let positions = bookmark['positions'];
         if (isUndefined(positions) || positions.length < idx - 1) {
             console.log('something wrong');
