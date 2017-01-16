@@ -17,7 +17,8 @@
     <ion-item-sliding *ngFor="let pos of currentBookmarks.positions; let idx = index">
 
       <ion-item (click)="seekBookmark(idx)">
-        #{{(idx+1)}} - {{pos | audioTime}}
+        <ion-icon name="ios-bookmark-outline"></ion-icon>
+        {{(idx+1)}} - {{pos | audioTime}}
       </ion-item>
 
       <ion-item-options side="right" (ionSwipe)="removeBookmark(idx)">

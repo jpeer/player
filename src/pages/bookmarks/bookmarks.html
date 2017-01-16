@@ -22,7 +22,8 @@
             <ion-item-sliding *ngFor="let pos of x.val.positions; let idx = index">
 
                 <ion-item (click)="onClick(x.val.metadata.link, idx)">
-                    #{{(idx+1)}} - {{pos | audioTime}}
+                    <ion-icon name="ios-bookmark-outline"></ion-icon>
+                    {{(idx+1)}} - {{pos | audioTime}}
                 </ion-item>
 
                 <ion-item-options side="right" (ionSwipe)="removeBookmark(x.val.metadata.link, idx)">

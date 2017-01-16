@@ -10,6 +10,8 @@ export class NativeAudioManager extends IAudioManager {
     private _timer : any;
     private _duration : number;
     private _progressPct: number;
+    private _status: number = MediaPlugin.MEDIA_NONE;
+    private _seekToRequest: number = -1;
 
     public loadTrack(url : string) {
         this.src = url;
@@ -21,15 +23,24 @@ export class NativeAudioManager extends IAudioManager {
     }
 
     public play() {
+
+        if (this._seekToRequest !== -1) {
+            this._seekToRequest = -1;
+        }
+
         if(this.audio) {
             this.audio.play({playAudioWhenScreenIsLocked: true});
             this.startTimer();
             return;
         }
 
-        console.log('native audio manager!');
-
-        this.audio = new MediaPlugin(this.src);
+        this.audio = new MediaPlugin(this.src, (status) => {
+            if(this._status === MediaPlugin.MEDIA_RUNNING && this._seekToRequest !== -1) {
+                this.audio.seekTo(this._seekToRequest * 1000);
+                this._seekToRequest = -1;
+            }
+            this._status = status;
+        });
         this.audio.play({playAudioWhenScreenIsLocked: true});
         this.startTimer();
     }
@@ -41,7 +52,12 @@ export class NativeAudioManager extends IAudioManager {
 
     /* expect in seconds */
     public seekTo(time: number) {
-        this.audio.seekTo(time * 1000);
+        console.log('seekto unvoked!', time, this._status);
+        if(this._status !== MediaPlugin.MEDIA_RUNNING) {
+            this._seekToRequest = time;
+        } else {
+            this.audio.seekTo(time * 1000);
+        }
     }
 
     public get duration() {

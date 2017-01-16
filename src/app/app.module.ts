@@ -9,7 +9,6 @@ import {DataService} from '../providers/data-service'
 import {Storage} from '@ionic/storage';
 import {ProgressBar} from '../components/player/progressbar';
 import {AudioTimePipe} from "../pipes/ionic-audio-time-pipe";
-import {KeysPipe} from "../pipes/keys-pipe";
 import {IAudioManager} from "../providers/audiomanager";
 import {PlayerComponent} from "../components/player/player";
 import {audioProviderfactory} from "../providers/audioproviderfactory";
@@ -31,7 +30,6 @@ import {MapValuesPipe} from "../pipes/mapvalues-pipe";
         TabsPage,
         ProgressBar,
         AudioTimePipe,
-        KeysPipe,
         MapValuesPipe,
         PlayerComponent
     ],

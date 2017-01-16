@@ -17,7 +17,6 @@ export class DataService {
 
     constructor(private storage: Storage) {
         storage.get(DataService.STORAGE_KEY).then((bookmarks) => {
-            console.log('loaded bookmarks: ', JSON.stringify(bookmarks, null, 2));
             if (bookmarks) {
                 this.bookmarks.next(bookmarks);
             }
@@ -62,7 +61,6 @@ export class DataService {
     }
 
     addBookmark(item, pos) {
-        console.log('addBookmark:', JSON.stringify(item))
         let bookmark = this.bookmarks.getValue().get(item.link);
         if (isUndefined(bookmark)) {
             bookmark = {'positions': [], 'metadata': item };
