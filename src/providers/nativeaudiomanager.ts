@@ -1,17 +1,21 @@
 import { IAudioManager } from './audiomanager';
-import {MediaPlugin} from "ionic-native";
+import {Media, MediaObject, MEDIA_STATUS} from "@ionic-native/media";
 import {Injectable} from "@angular/core";
 
 @Injectable()
 export class NativeAudioManager extends IAudioManager {
-    private audio: MediaPlugin;
+    private audio: MediaObject;
     private _progress: number;
     private src : string;
     private _timer : any;
     private _duration : number;
     private _progressPct: number;
-    private _status: number = MediaPlugin.MEDIA_NONE;
+    private _status: number = MEDIA_STATUS.NONE;
     private _seekToRequest: number = -1;
+
+    constructor(private media: Media) {
+        super();
+    }
 
     public loadTrack(url : string) {
         this.src = url;
@@ -34,13 +38,15 @@ export class NativeAudioManager extends IAudioManager {
             return;
         }
 
-        this.audio = new MediaPlugin(this.src, (status) => {
-            if(this._status === MediaPlugin.MEDIA_RUNNING && this._seekToRequest !== -1) {
-                this.audio.seekTo(this._seekToRequest * 1000);
-                this._seekToRequest = -1;
-            }
-            this._status = status;
-        });
+        this.audio = this.media.create(this.src);
+
+        // this.audio = new MediaPlugin(this.src, (status) => {
+        //     if(this._status === MediaPlugin.MEDIA_RUNNING && this._seekToRequest !== -1) {
+        //         this.audio.seekTo(this._seekToRequest * 1000);
+        //         this._seekToRequest = -1;
+        //     }
+        //     this._status = status;
+        // });
         this.audio.play({playAudioWhenScreenIsLocked: true});
         this.startTimer();
     }
@@ -53,7 +59,7 @@ export class NativeAudioManager extends IAudioManager {
     /* expect in seconds */
     public seekTo(time: number) {
         console.log('seekto unvoked!', time, this._status);
-        if(this._status !== MediaPlugin.MEDIA_RUNNING) {
+        if(this._status !== MEDIA_STATUS.RUNNING) {
             this._seekToRequest = time;
         } else {
             this.audio.seekTo(time * 1000);

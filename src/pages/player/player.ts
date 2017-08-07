@@ -3,7 +3,7 @@ import {NavController, NavParams} from 'ionic-angular';
 import {ITrack, IBookmark} from "../../providers/podcast";
 import {DataService} from "../../providers/data-service";
 import {IAudioManager} from "../../providers/audiomanager";
-import {Toast} from 'ionic-native';
+import {Toast} from "@ionic-native/toast";
 import {AudioTimePipe} from "../../pipes/ionic-audio-time-pipe";
 import {isDefined} from "ionic-angular/util/util";
 
@@ -17,7 +17,8 @@ export class PlayerPage {
     currentBookmarks: IBookmark;
     seekTo: number = -1;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private dataService: DataService, private audioManager: IAudioManager) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private dataService: DataService,
+                private audioManager: IAudioManager, private toast : Toast) {
         this.track = navParams.data.track;
         this.dataService.getBookmarks().subscribe((bm) => {
             console.log('bookmarks got updated');
@@ -38,7 +39,7 @@ export class PlayerPage {
     addBookmark(): void {
         this.dataService.addBookmark(this.track, this.audioManager.progress);
         if (window.hasOwnProperty('cordova')) {
-            Toast.show('Bookmark added at position ' + new AudioTimePipe().transform(this.audioManager.progress), '2000', 'center').subscribe(toast => {
+            this.toast.show('Bookmark added at position ' + new AudioTimePipe().transform(this.audioManager.progress), '2000', 'center').subscribe(toast => {
                 console.log(toast);
             });
         }

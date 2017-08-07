@@ -11,7 +11,7 @@ import {DataService} from "../../providers/data-service";
 export class SearchPage {
 
     private searchResults: any[] = [];
-    private searchQuery: string = 'franetic';
+    private searchQuery: string = '';
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private searchService: SearchService, private dataService: DataService) {
     }

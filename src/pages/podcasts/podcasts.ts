@@ -4,7 +4,7 @@ import {DataService} from "../../providers/data-service";
 import {HomePage} from "../home/home";
 import {SearchPage} from "../search/search";
 import {IPodcast} from "../../providers/podcast";
-import {Toast} from "ionic-native";
+import {Toast} from "@ionic-native/toast";
 
 @Component({
   selector: 'page-podcasts',
@@ -12,7 +12,8 @@ import {Toast} from "ionic-native";
 })
 export class PodcastsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private dataService: DataService) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, private dataService: DataService,
+              private toast: Toast) {}
 
   podcastsMetadata: Map<string, IPodcast> = new Map();
 
@@ -34,7 +35,7 @@ export class PodcastsPage {
   removePodcastMetadata(feedUrl: string) {
     this.dataService.removePodcastMetaData(feedUrl);
     if(window.hasOwnProperty('cordova')) {
-      Toast.show('Podcast removed', '2000', 'center').subscribe(toast => {console.log(toast);});
+      this.toast.show('Podcast removed', '2000', 'center').subscribe(t => {console.log(t);});
     }
   }
 
