@@ -6,7 +6,7 @@ webpackJsonp([0],{
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProgressBar; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_audiomanager__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_nativeaudiomanager__ = __webpack_require__(160);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -33,7 +33,7 @@ var ProgressBar = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* Input */])(),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__providers_audiomanager__["a" /* IAudioManager */])
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__providers_nativeaudiomanager__["a" /* NativeAudioManager */])
 ], ProgressBar.prototype, "audioManager", void 0);
 ProgressBar = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -52,7 +52,7 @@ ProgressBar = __decorate([
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PlayerComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_audiomanager__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_nativeaudiomanager__ = __webpack_require__(160);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -113,7 +113,7 @@ PlayerComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'player',template:/*ion-inline-start:"/Users/jpeer/code/player/src/components/player/player.html"*/'<div *ngIf="currentItem"> Current: {{currentItem.title}}</div>\n\n<div *ngIf="audioManager">\n    <progress-bar [audioManager]="audioManager"></progress-bar>\n</div>\n<div>\n    <button ion-button round (click)="skipBack()">-30s</button>\n    <button ion-button round (click)="onPlay()">\n        <ion-icon name="play"></ion-icon>\n    </button>\n    <button ion-button round (click)="onPause()">\n        <ion-icon name="pause"></ion-icon>\n    </button>\n    <button ion-button round (click)="skipAhead()">+30s</button>\n</div>'/*ion-inline-end:"/Users/jpeer/code/player/src/components/player/player.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__providers_audiomanager__["a" /* IAudioManager */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__providers_nativeaudiomanager__["a" /* NativeAudioManager */]])
 ], PlayerComponent);
 
 //# sourceMappingURL=player.js.map
@@ -160,10 +160,9 @@ MapValuesPipe = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NativeAudioManager; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__audiomanager__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_media__ = __webpack_require__(261);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(1);
+/* unused harmony export MediaObjectMock */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MediaMock; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ionic_native_media__ = __webpack_require__(245);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -174,6 +173,37 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+
+var MediaObjectMock = (function (_super) {
+    __extends(MediaObjectMock, _super);
+    function MediaObjectMock() {
+        return _super.call(this, null) || this;
+    }
+    return MediaObjectMock;
+}(__WEBPACK_IMPORTED_MODULE_0__ionic_native_media__["c" /* MediaObject */]));
+
+var MediaMock = (function (_super) {
+    __extends(MediaMock, _super);
+    function MediaMock() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MediaMock.prototype.create = function (src) {
+        return new MediaObjectMock();
+    };
+    return MediaMock;
+}(__WEBPACK_IMPORTED_MODULE_0__ionic_native_media__["b" /* Media */]));
+
+//# sourceMappingURL=media-mock.js.map
+
+/***/ }),
+
+/***/ 160:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NativeAudioManager; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ionic_native_media__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -185,15 +215,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-
-var NativeAudioManager = (function (_super) {
-    __extends(NativeAudioManager, _super);
+var NativeAudioManager = (function () {
     function NativeAudioManager(media) {
-        var _this = _super.call(this) || this;
-        _this.media = media;
-        _this._status = __WEBPACK_IMPORTED_MODULE_1__ionic_native_media__["a" /* MEDIA_STATUS */].NONE;
-        _this._seekToRequest = -1;
-        return _this;
+        this.media = media;
+        this._status = __WEBPACK_IMPORTED_MODULE_0__ionic_native_media__["a" /* MEDIA_STATUS */].NONE;
+        this._seekToRequest = -1;
     }
     NativeAudioManager.prototype.loadTrack = function (url) {
         this.src = url;
@@ -230,7 +256,7 @@ var NativeAudioManager = (function (_super) {
     /* expect in seconds */
     NativeAudioManager.prototype.seekTo = function (time) {
         console.log('seekto unvoked!', time, this._status);
-        if (this._status !== __WEBPACK_IMPORTED_MODULE_1__ionic_native_media__["a" /* MEDIA_STATUS */].RUNNING) {
+        if (this._status !== __WEBPACK_IMPORTED_MODULE_0__ionic_native_media__["a" /* MEDIA_STATUS */].RUNNING) {
             this._seekToRequest = time;
         }
         else {
@@ -277,54 +303,13 @@ var NativeAudioManager = (function (_super) {
         clearInterval(this._timer);
     };
     return NativeAudioManager;
-}(__WEBPACK_IMPORTED_MODULE_0__audiomanager__["a" /* IAudioManager */]));
+}());
 NativeAudioManager = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ionic_native_media__["b" /* Media */]])
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["B" /* Injectable */])(),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__ionic_native_media__["b" /* Media */]])
 ], NativeAudioManager);
 
 //# sourceMappingURL=nativeaudiomanager.js.map
-
-/***/ }),
-
-/***/ 1098:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export MediaObjectMock */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MediaMock; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ionic_native_media__ = __webpack_require__(261);
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-
-var MediaObjectMock = (function (_super) {
-    __extends(MediaObjectMock, _super);
-    function MediaObjectMock() {
-        return _super.call(this, null) || this;
-    }
-    return MediaObjectMock;
-}(__WEBPACK_IMPORTED_MODULE_0__ionic_native_media__["c" /* MediaObject */]));
-
-var MediaMock = (function (_super) {
-    __extends(MediaMock, _super);
-    function MediaMock() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    MediaMock.prototype.create = function (src) {
-        return new MediaObjectMock();
-    };
-    return MediaMock;
-}(__WEBPACK_IMPORTED_MODULE_0__ionic_native_media__["b" /* Media */]));
-
-//# sourceMappingURL=media-mock.js.map
 
 /***/ }),
 
@@ -336,8 +321,8 @@ var MediaMock = (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_data_service__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_audiomanager__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_toast__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_nativeaudiomanager__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_toast__ = __webpack_require__(246);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pipes_ionic_audio_time_pipe__ = __webpack_require__(455);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ionic_angular_util_util__ = __webpack_require__(3);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -401,14 +386,14 @@ PlayerPage = __decorate([
         selector: 'page-player',template:/*ion-inline-start:"/Users/jpeer/code/player/src/pages/player/player.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>{{track.title}}</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-img *ngIf="track.picUrl" width="140" height="140" src="{{track.picUrl}}"></ion-img>\n\n  <player [currentItem]="track"></player>\n\n  <div>\n    <button ion-button round (click)="addBookmark()">Add bookmark</button>\n  </div>\n\n  <ion-list >\n    <ion-item-sliding *ngFor="let pos of currentBookmarks.positions; let idx = index">\n\n      <ion-item (click)="seekBookmark(idx)">\n        <ion-icon name="ios-bookmark-outline"></ion-icon>\n        {{(idx+1)}} - {{pos | audioTime}}\n      </ion-item>\n\n      <ion-item-options side="right" (ionSwipe)="removeBookmark(idx)">\n        <button ion-button color="primary" expandable (click)="removeBookmark(idx)">\n          <ion-icon name="remove-circle"></ion-icon>\n          Remove\n        </button>\n      </ion-item-options>\n\n    </ion-item-sliding>\n\n  </ion-list>\n\n</ion-content>\n'/*ion-inline-end:"/Users/jpeer/code/player/src/pages/player/player.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_data_service__["a" /* DataService */],
-        __WEBPACK_IMPORTED_MODULE_3__providers_audiomanager__["a" /* IAudioManager */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_toast__["a" /* Toast */]])
+        __WEBPACK_IMPORTED_MODULE_3__providers_nativeaudiomanager__["a" /* NativeAudioManager */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_toast__["a" /* Toast */]])
 ], PlayerPage);
 
 //# sourceMappingURL=player.js.map
 
 /***/ }),
 
-/***/ 246:
+/***/ 247:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -417,8 +402,7 @@ PlayerPage = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_data_service__ = __webpack_require__(87);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_login_service_login_service__ = __webpack_require__(457);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_audiomanager__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__player_player__ = __webpack_require__(244);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__player_player__ = __webpack_require__(244);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -433,12 +417,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 var HomePage = (function () {
-    function HomePage(navCtrl, params, dataService, audioManager, loginService) {
+    function HomePage(navCtrl, params, dataService, loginService) {
         this.navCtrl = navCtrl;
         this.dataService = dataService;
-        this.audioManager = audioManager;
         this.loginService = loginService;
         this.currentPodcast = params.data.podcast;
     }
@@ -459,7 +441,7 @@ var HomePage = (function () {
         });
     };
     HomePage.prototype.onItemClicked = function (idx) {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__player_player__["a" /* PlayerPage */], { track: this.currentPodcastData.items[idx] });
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__player_player__["a" /* PlayerPage */], { track: this.currentPodcastData.items[idx] });
     };
     return HomePage;
 }());
@@ -468,7 +450,7 @@ HomePage = __decorate([
         selector: 'page-home',template:/*ion-inline-start:"/Users/jpeer/code/player/src/pages/home/home.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>\n            <div *ngIf="!currentPodcastData">Loading...</div>\n            <div *ngIf="currentPodcastData">{{currentPodcastData.title}}</div>\n        </ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n    <div *ngIf="currentPodcastData">\n        <ion-list>\n            <ion-item *ngFor="let track of currentPodcastData.items; let idx = index" (click)="onItemClicked(idx)">\n                <ion-thumbnail item-start>\n                    <img src="{{track.picUrl}}">\n                </ion-thumbnail>\n                <div item-content style="width:100%">\n                    <p><strong>{{track.title}}</strong></p>\n                </div>\n            </ion-item>\n        </ion-list>\n    </div>\n</ion-content>\n\n\n'/*ion-inline-end:"/Users/jpeer/code/player/src/pages/home/home.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_data_service__["a" /* DataService */],
-        __WEBPACK_IMPORTED_MODULE_4__providers_audiomanager__["a" /* IAudioManager */], __WEBPACK_IMPORTED_MODULE_3__providers_login_service_login_service__["a" /* LoginServiceProvider */]])
+        __WEBPACK_IMPORTED_MODULE_3__providers_login_service_login_service__["a" /* LoginServiceProvider */]])
 ], HomePage);
 
 //# sourceMappingURL=home.js.map
@@ -546,9 +528,8 @@ TabsPage = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_data_service__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_audiomanager__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular_util_util__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__player_player__ = __webpack_require__(244);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular_util_util__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__player_player__ = __webpack_require__(244);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -563,12 +544,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 var BookmarksPage = (function () {
-    function BookmarksPage(navCtrl, dataService, audioManager) {
+    function BookmarksPage(navCtrl, dataService) {
         this.navCtrl = navCtrl;
         this.dataService = dataService;
-        this.audioManager = audioManager;
         this.bookmarks = new Map();
     }
     BookmarksPage.prototype.ngOnInit = function () {
@@ -583,10 +562,10 @@ var BookmarksPage = (function () {
     };
     BookmarksPage.prototype.onClick = function (uri, idx) {
         var bm = this.bookmarks.get(uri);
-        if (Object(__WEBPACK_IMPORTED_MODULE_4_ionic_angular_util_util__["p" /* isUndefined */])(bm)) {
+        if (Object(__WEBPACK_IMPORTED_MODULE_3_ionic_angular_util_util__["p" /* isUndefined */])(bm)) {
             return;
         }
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__player_player__["a" /* PlayerPage */], { track: bm.metadata, seekTo: bm.positions[idx] });
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__player_player__["a" /* PlayerPage */], { track: bm.metadata, seekTo: bm.positions[idx] });
     };
     return BookmarksPage;
 }());
@@ -594,7 +573,7 @@ BookmarksPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'page-bookmarks',template:/*ion-inline-start:"/Users/jpeer/code/player/src/pages/bookmarks/bookmarks.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title>\n            Bookmarks\n        </ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n    <div *ngIf="bookmarks">\n\n        <ion-list *ngFor="let x of bookmarks | mapValues">\n            <ion-list-header>\n                <ion-thumbnail item-left>\n                    <img src="{{x.val.metadata.picUrl}}">\n                </ion-thumbnail>\n                <div item-content style="width:100%">\n                    <p><strong>{{x.val.metadata.title}}</strong></p>\n                </div>\n            </ion-list-header>\n            <ion-item-sliding *ngFor="let pos of x.val.positions; let idx = index">\n\n                <ion-item (click)="onClick(x.val.metadata.link, idx)">\n                    <ion-icon name="ios-bookmark-outline"></ion-icon>\n                    {{(idx+1)}} - {{pos | audioTime}}\n                </ion-item>\n\n                <ion-item-options side="right" (ionSwipe)="removeBookmark(x.val.metadata.link, idx)">\n                    <button ion-button color="primary" expandable (click)="removeBookmark(x.val.metadata.link, idx)">\n                        <ion-icon name="remove-circle"></ion-icon>\n                        Remove\n                    </button>\n                </ion-item-options>\n\n            </ion-item-sliding>\n\n        </ion-list>\n\n    </div>\n\n\n</ion-content>\n'/*ion-inline-end:"/Users/jpeer/code/player/src/pages/bookmarks/bookmarks.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_data_service__["a" /* DataService */], __WEBPACK_IMPORTED_MODULE_3__providers_audiomanager__["a" /* IAudioManager */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_data_service__["a" /* DataService */]])
 ], BookmarksPage);
 
 //# sourceMappingURL=bookmarks.js.map
@@ -659,9 +638,9 @@ AudioTimePipe = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_data_service__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(247);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__search_search__ = __webpack_require__(458);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_toast__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_toast__ = __webpack_require__(246);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -773,7 +752,7 @@ LoginServiceProvider = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_search_service__ = __webpack_require__(459);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(247);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_data_service__ = __webpack_require__(87);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -831,7 +810,7 @@ SearchPage = __decorate([
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(247);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(248);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -896,7 +875,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_component__ = __webpack_require__(541);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_bookmarks_bookmarks__ = __webpack_require__(361);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(247);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_player_player__ = __webpack_require__(244);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_tabs_tabs__ = __webpack_require__(360);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_data_service__ = __webpack_require__(87);
@@ -907,17 +886,17 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_podcasts_podcasts__ = __webpack_require__(456);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_search_search__ = __webpack_require__(458);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_search_service__ = __webpack_require__(459);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__angular_http__ = __webpack_require__(247);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__angular_http__ = __webpack_require__(248);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pipes_mapvalues_pipe__ = __webpack_require__(1096);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__angular_platform_browser__ = __webpack_require__(72);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__providers_login_service_login_service__ = __webpack_require__(457);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__providers_nativeaudiomanager__ = __webpack_require__(1097);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_media__ = __webpack_require__(261);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__providers_media_mock__ = __webpack_require__(1098);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__providers_nativeaudiomanager__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_media__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__providers_media_mock__ = __webpack_require__(1097);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_status_bar__ = __webpack_require__(355);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_splash_screen__ = __webpack_require__(359);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_native_background_mode__ = __webpack_require__(460);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ionic_native_toast__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ionic_native_toast__ = __webpack_require__(246);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1251,40 +1230,6 @@ DataService = DataService_1 = __decorate([
 
 var DataService_1;
 //# sourceMappingURL=data-service.js.map
-
-/***/ }),
-
-/***/ 93:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IAudioManager; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var IAudioManager = (function () {
-    function IAudioManager() {
-    }
-    IAudioManager.prototype.loadTrack = function (url) { };
-    ;
-    IAudioManager.prototype.play = function () { };
-    ;
-    IAudioManager.prototype.pause = function () { };
-    ;
-    IAudioManager.prototype.seekTo = function (time) { };
-    ;
-    return IAudioManager;
-}());
-IAudioManager = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])()
-], IAudioManager);
-
-//# sourceMappingURL=audiomanager.js.map
 
 /***/ })
 

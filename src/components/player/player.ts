@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {IAudioManager} from "../../providers/audiomanager";
+import {NativeAudioManager} from "../../providers/nativeaudiomanager";
 
 @Component({
   selector: 'player',
@@ -9,7 +9,7 @@ export class PlayerComponent {
 
   private _currentItem : any = null;
 
-  constructor(private audioManager: IAudioManager) {
+  constructor(private audioManager: NativeAudioManager) {
   }
 
   @Input()

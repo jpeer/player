@@ -3,7 +3,6 @@ import {Component, OnInit} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {DataService} from "../../providers/data-service";
 import {LoginServiceProvider} from "../../providers/login-service/login-service";
-import {IAudioManager} from '../../providers/audiomanager';
 import {IPodcast} from "../../providers/podcast";
 import {PlayerPage} from "../player/player";
 
@@ -19,7 +18,7 @@ export class HomePage implements OnInit {
     error: string;
 
     constructor(public navCtrl: NavController, params: NavParams, private dataService: DataService,
-                private audioManager: IAudioManager, private loginService: LoginServiceProvider) {
+                private loginService: LoginServiceProvider) {
         this.currentPodcast = params.data.podcast;
     }
 

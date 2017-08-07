@@ -1,9 +1,8 @@
-import { IAudioManager } from './audiomanager';
 import {Media, MediaObject, MEDIA_STATUS} from "@ionic-native/media";
 import {Injectable} from "@angular/core";
 
 @Injectable()
-export class NativeAudioManager extends IAudioManager {
+export class NativeAudioManager {
     private audio: MediaObject;
     private _progress: number;
     private src : string;
@@ -14,7 +13,6 @@ export class NativeAudioManager extends IAudioManager {
     private _seekToRequest: number = -1;
 
     constructor(private media: Media) {
-        super();
     }
 
     public loadTrack(url : string) {

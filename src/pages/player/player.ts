@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {ITrack, IBookmark} from "../../providers/podcast";
 import {DataService} from "../../providers/data-service";
-import {IAudioManager} from "../../providers/audiomanager";
+import {NativeAudioManager} from "../../providers/nativeaudiomanager";
 import {Toast} from "@ionic-native/toast";
 import {AudioTimePipe} from "../../pipes/ionic-audio-time-pipe";
 import {isDefined} from "ionic-angular/util/util";
@@ -18,7 +18,7 @@ export class PlayerPage {
     seekTo: number = -1;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private dataService: DataService,
-                private audioManager: IAudioManager, private toast : Toast) {
+                private audioManager: NativeAudioManager, private toast : Toast) {
         this.track = navParams.data.track;
         this.dataService.getBookmarks().subscribe((bm) => {
             console.log('bookmarks got updated');

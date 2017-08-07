@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 
 import {NavController} from 'ionic-angular';
 import {DataService} from "../../providers/data-service";
-import {IAudioManager} from "../../providers/audiomanager";
 import {isUndefined} from "ionic-angular/util/util";
 import {PlayerPage} from "../player/player";
 import {IBookmark} from "../../providers/podcast";
@@ -15,7 +14,7 @@ export class BookmarksPage implements OnInit {
 
     bookmarks: Map<string, IBookmark> = new Map();
 
-    constructor(public navCtrl: NavController, private dataService: DataService, private audioManager: IAudioManager) {
+    constructor(public navCtrl: NavController, private dataService: DataService) {
 
     }
 

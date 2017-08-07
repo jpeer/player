@@ -1,5 +1,5 @@
 import {Component, Input, DoCheck} from '@angular/core'
-import {IAudioManager} from "../../providers/audiomanager";
+import {NativeAudioManager} from "../../providers/nativeaudiomanager";
 
 @Component({
     selector: 'progress-bar',
@@ -13,7 +13,7 @@ import {IAudioManager} from "../../providers/audiomanager";
 export class ProgressBar implements DoCheck {
 
     @Input()
-    audioManager: IAudioManager;
+    audioManager: NativeAudioManager;
     range: number = 0;
 
     ngDoCheck() {
