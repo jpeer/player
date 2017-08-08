@@ -26,6 +26,8 @@ import {StatusBar} from "@ionic-native/status-bar";
 import {SplashScreen} from "@ionic-native/splash-screen";
 import {BackgroundMode} from "@ionic-native/background-mode";
 import {Toast} from "@ionic-native/toast";
+import {LoginPage} from "../pages/login/login";
+import { PasswordAuthProvider } from '../providers/password-auth/password-auth';
 
 
 @NgModule({
@@ -40,7 +42,8 @@ import {Toast} from "@ionic-native/toast";
         ProgressBar,
         AudioTimePipe,
         MapValuesPipe,
-        PlayerComponent
+        PlayerComponent,
+        LoginPage
     ],
     imports: [
         JsonpModule,
@@ -59,7 +62,8 @@ import {Toast} from "@ionic-native/toast";
         BookmarksPage,
         HomePage,
         PlayerPage,
-        TabsPage
+        TabsPage,
+        LoginPage
     ],
     providers: [
         {provide: ErrorHandler, useClass: IonicErrorHandler},
@@ -72,7 +76,8 @@ import {Toast} from "@ionic-native/toast";
         StatusBar,
         SplashScreen,
         BackgroundMode,
-        Toast
+        Toast,
+        PasswordAuthProvider
     ]
 })
 export class AppModule {

@@ -26145,3 +26145,32 @@ ion-navbar.toolbar {
 page-home .selected {
   background-color: deepskyblue;
 }
+
+page-login form {
+  margin-bottom: 32px;
+}
+
+page-login form button {
+  margin-top: 20px;
+}
+
+page-login p {
+  font-size: 0.8em;
+  color: #d2d2d2;
+}
+
+page-login ion-label {
+  margin-left: 5px;
+}
+
+page-login ion-input {
+  padding: 5px;
+}
+
+page-login .invalid {
+  border-bottom: 1px solid #FF6153;
+}
+
+page-login .error-message .item-inner {
+  border-bottom: 0 !important;
+}

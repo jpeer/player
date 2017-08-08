@@ -11,7 +11,7 @@ import {PlayerPage} from "../player/player";
     selector: 'page-home',
     templateUrl: 'home.html'
 })
-export class HomePage implements OnInit {
+export class HomePage {
 
     currentPodcast: IPodcast;
     currentPodcastData: any;
@@ -23,6 +23,9 @@ export class HomePage implements OnInit {
     }
 
     ngOnInit(): void {
+
+        console.log("Homepage ngOnInit()");
+
         this.dataService.getPodcastData(this.currentPodcast.feed).then(res => {
             this.currentPodcastData = res;
         }, err => {

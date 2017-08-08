@@ -7,6 +7,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { BackgroundMode } from '@ionic-native/background-mode';
 
 import firebase from 'firebase'
+import {LoginServiceProvider} from "../providers/login-service/login-service";
+import {LoginPage} from "../pages/login/login";
 
 
 @Component({
@@ -16,7 +18,7 @@ export class MyApp {
   rootPage : any= TabsPage;
 
   constructor(platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen,
-              private backgroundMode: BackgroundMode) {
+              private backgroundMode: BackgroundMode, private loginService: LoginServiceProvider) {
 
       firebase.initializeApp({
           apiKey: "AIzaSyDT49BcSuSRGipcz60ceaRZTIsV9G5CJ8o",
@@ -31,9 +33,20 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      splashScreen.hide();
 
       this.backgroundMode.enable();
+
+
+      loginService.isLoggedIn().then(loginStatus => {
+
+          splashScreen.hide();
+
+          if (!loginStatus) {
+              console.log("dude, you are not logged in.");
+              this.rootPage = LoginPage;
+          }
+
+      });
 
     });
   }
