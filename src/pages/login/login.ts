@@ -9,6 +9,7 @@ import {FormBuilder, Validators, FormGroup} from '@angular/forms';
 import {LoginServiceProvider} from "../../providers/login-service/login-service";
 import {PasswordAuthProvider} from "../../providers/password-auth/password-auth";
 import {TabsPage} from "../tabs/tabs";
+import {RegisterPage} from "../register/register";
 
 
 @Component({
@@ -59,6 +60,7 @@ export class LoginPage {
 
     goToSignup() {
         console.log('goToSignup was called!');
+        this.navCtrl.push(RegisterPage);
     }
 
     goToResetPassword() {

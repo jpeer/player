@@ -28,6 +28,7 @@ import {BackgroundMode} from "@ionic-native/background-mode";
 import {Toast} from "@ionic-native/toast";
 import {LoginPage} from "../pages/login/login";
 import { PasswordAuthProvider } from '../providers/password-auth/password-auth';
+import {RegisterPage} from "../pages/register/register";
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { PasswordAuthProvider } from '../providers/password-auth/password-auth';
         AudioTimePipe,
         MapValuesPipe,
         PlayerComponent,
-        LoginPage
+        LoginPage,
+        RegisterPage
     ],
     imports: [
         JsonpModule,
@@ -63,7 +65,8 @@ import { PasswordAuthProvider } from '../providers/password-auth/password-auth';
         HomePage,
         PlayerPage,
         TabsPage,
-        LoginPage
+        LoginPage,
+        RegisterPage
     ],
     providers: [
         {provide: ErrorHandler, useClass: IonicErrorHandler},
